@@ -126,6 +126,7 @@
 		__overlay__{
 			one-bit-adc-dac@0 {
 				compatible = "adi,one-bit-adc-dac";
+				label = "gpios";
 				#address-cells = <1>;
 				#size-cells = <0>;
 				in-gpios = <&gpio 25 0>;
@@ -183,12 +184,13 @@
 			status = "okay";
 			ad7291@2f {
 				compatible = "adi,ad7291";
+				label = "housekeeping_adc";
 				clock-frequency = <400000>;
 				reg = <0x2a>;
 			};
 
 			eeprom@50 {
-				compatible = "at24,24c02";
+				compatible = "at24,24c32";
 				clock-frequency = <400000>;
 				reg = <0x57>;
 			};
