@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: GPL-2.0
+/dts-v1/;
+/plugin/;
+
+// Device Tree Overlay for LM75, ADT75 (and other generics) Temperature Sensor
+// Tested with ADT75 on breakout board wired directly to Raspberry Pi I2C bus.
+// Default address is 0x4c, corresponding to A2:A0 = 1,0,0
+// Override address to XX by specifying:
+// dtoverlay=rpi-lm75,reg=0xXX
+
+/ {
+	compatible = "brcm,bcm2835", "brcm,bcm2708", "brcm,bcm2709";
+
+	fragment@0 {
+		target = <&i2c1>;
+		__overlay__ {
+			#address-cells = <0x1>;
+			#size-cells = <0x0>;
+			status = "okay";
+			tmp_sns@48{
+				compatible = "lm75";
+				reg = <0x4c>;
+				label = "my_lm75";
+			};
+
+		};
+	};
+//	__overrides__ {
+//		addr = <&lm75>,"reg:0";
+//	};
+};
