@@ -87,6 +87,7 @@ dtoverlay=rpi-cn0566
 
 
 # Heartbeat blinky:
+dtparam=act_led_gpio=26
 dtparam=act_led_trigger=heartbeat
 
 # Short GPIO121 (pin 40) to ground for shutdown:
