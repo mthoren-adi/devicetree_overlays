@@ -16,6 +16,11 @@ sudo mv /etc/rc.local /etc/rc_orignal.local
 sudo cp rc.local /etc/
 
 
+
+# Grab handy script for updating Pluto to AD9361 mode:
+wget https://github.com/mthoren-adi/rpi_setup_stuff/raw/main/phaser/pluto_update_ad9361.sh
+chmod +x pluto_update_ad9361.sh
+
 ##### as of libiio 0.24 included in Kuiper 2021_r2, this is NOT necessary:
 #git clone https://github.com/analogdevicesinc/libiio.git
 #git checkout master
