@@ -1,7 +1,20 @@
+# Grab config.txt file. This applies the overlay, sets up the green heartbeat blinky light,
+# and enables the shutdown button
+
 wget https://github.com/mthoren-adi/rpi_setup_stuff/raw/main/phaser/config_phaser.txt
 mv config_phaser.txt config.txt
 sudo mv /boot/config.txt /boot/config_original.txt
 sudo cp config.txt /boot/
+
+
+# Grab rc.local file that enables Pluto context forwarding.
+# NOTE that this is a stopgap - there is a better way to do this that
+# accounts for iiod crashing and hot-plugging the Pluto.
+wget https://github.com/mthoren-adi/rpi_setup_stuff/raw/main/phaser/rc_phaser.local
+mv rc_phaser.local rc.local
+sudo mv /etc/rc.local /etc/rc_orignal.local
+sudo cp rc.local /etc/
+
 
 ##### as of libiio 0.24 included in Kuiper 2021_r2, this is NOT necessary:
 #git clone https://github.com/analogdevicesinc/libiio.git
@@ -24,6 +37,8 @@ git clone https://github.com/analogdevicesinc/pyadi-iio.git
 cd pyadi-iio
 git checkout cn0566_dev
 sudo python3 setup.py install
+
+cd ~
 
 sudo ldconfig
 
