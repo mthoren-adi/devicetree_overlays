@@ -6,15 +6,14 @@ mv config_phaser.txt config.txt
 sudo mv /boot/config.txt /boot/config_original.txt
 sudo cp config.txt /boot/
 
+# Set up udev rule for PlutoSDR. When a PlutoSDR is connected, a second instance of iiod
+# is launched, sharing the PlutoSDR over port 12345.
+# This rule is tolerant of connecting the Pluto after boot, and disconnecting / reconnecting.
+wget https://github.com/mthoren-adi/rpi_setup_stuff/raw/main/phaser/iiod-usb@.service
+wget https://github.com/mthoren-adi/rpi_setup_stuff/raw/main/phaser/89-pluto.rules
 
-# Grab rc.local file that enables Pluto context forwarding.
-# NOTE that this is a stopgap - there is a better way to do this that
-# accounts for iiod crashing and hot-plugging the Pluto.
-wget https://github.com/mthoren-adi/rpi_setup_stuff/raw/main/phaser/rc_phaser.local
-mv rc_phaser.local rc.local
-sudo mv /etc/rc.local /etc/rc_orignal.local
-sudo cp rc.local /etc/
-
+sudo cp iiod-usb@.service /etc/systemd/system/
+sudo cp 89-pluto.rules /etc/udev/rules.d/
 
 # Grab hosts and hostname files with hostname set to "phaser". This
 # distinguishes the phaser setup from other ADI hardware setups using the
@@ -36,8 +35,8 @@ chmod +x pluto_update_ad9361.sh
 
 
 cd ~
-# This is still necessary as of January, 2023.
-# Uninstall existing pyadi, reinstall from source:
+# This is still necessary as of April, 2023.
+# Uninstall existing pyadi-iio, reinstall pyadi-iio phaser development branch from source:
 sudo pip3 uninstall -y pyadi-iio
 git clone https://github.com/analogdevicesinc/pyadi-iio.git
 cd pyadi-iio
@@ -60,18 +59,4 @@ wget https://github.com/analogdevicesinc/plutosdr-fw/releases/download/v0.35/plu
 echo "Done setting up SD card! A reboot is probably in order, sor run 'sudo reboot'"
 echo "IF you are very sure you're only going to be operating headless or by command line and want to speed the boot / shutdown process, run:"
 echo "sudo systemctl disable x11vnc.service" 
-
-
-
-##### as of libiio 0.24 included in Kuiper 2021_r2, this is NOT necessary:
-#git clone https://github.com/analogdevicesinc/libiio.git
-#git checkout master
-#cd libiio
-#mkdir build && cd build && cmake -DWITH_SYSTEMD=ON -DPYTHON_BINDINGS=ON -DWITH_HWMON=ON -DWITH_MAN=ON -DWITH_EXAMPLES=ON ../ && make && sudo make install
-# sudo reboot
-
-
-##### As of Kuiper 2021_r1, this is NOT necessary (included in /boot/overlays)
-#wget https://github.com/mthoren-adi/devicetree_overlays/raw/main/rpi-cn0566.dtbo
-#sudo cp rpi-cn0566.dtbo /boot/overlays
-# sudo reboot
+echo "And then set the Pi to boot to CLI in either the GUI or CLI Raspi-config tool."

@@ -1,0 +1,8 @@
+SUBSYSTEM!="usb", GOTO="pluto_end"
+ENV{DEVTYPE}!="usb_device", GOTO="pluto_end"
+ENV{PRODUCT}!="456/b673/*", GOTO="pluto_end"
+
+ACTION=="add", TAG+="systemd", ENV{SYSTEMD_WANTS}+="iiod-usb@%E{BUSNUM}.%E{DEVNUM}.5.service"
+ACTION=="remove", RUN+="/bin/systemctl stop iiod-usb@%E{BUSNUM}.%E{DEVNUM}.5.service"
+
+LABEL="pluto_end"
