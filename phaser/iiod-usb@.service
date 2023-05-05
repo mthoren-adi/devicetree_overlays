@@ -9,5 +9,5 @@ Description=IIO Daemon
 Documentation=man:iiod(8)
 
 [Service]
-ExecStart=/usr/sbin/iiod -p 12345 -u usb:%i
+ExecStart=/usr/sbin/iiod -p 50901 -u usb:%i
 KillMode=process
