@@ -1,3 +1,7 @@
+# Update time and apt cache
+sudo date -s "$(wget --method=HEAD -qSO- --max-redirect=0 google.com 2>&1 | sed -n 's/^ *Date: *//p')"
+sudo apt update
+
 # Grab config.txt file. This applies the overlay, sets up the green heartbeat blinky light,
 # and enables the shutdown button
 
