@@ -40,11 +40,13 @@ chmod +x pluto_update_ad9361.sh
 
 cd ~
 # This is still necessary as of April, 2023.
-# Uninstall existing pyadi-iio, reinstall pyadi-iio phaser development branch from source:
+# Phaser code has been merged to master, July 2023:
+# https://github.com/analogdevicesinc/pyadi-iio/pull/435
+# Uninstall existing pyadi-iio, reinstall pyadi-iio master branch from source:
 sudo pip3 uninstall -y pyadi-iio
 git clone https://github.com/analogdevicesinc/pyadi-iio.git
 cd pyadi-iio
-git checkout phaser
+git checkout master
 sudo pip install .
 
 cd ~
