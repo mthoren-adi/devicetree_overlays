@@ -46,7 +46,7 @@ cd ~
 sudo pip3 uninstall -y pyadi-iio
 git clone https://github.com/analogdevicesinc/pyadi-iio.git
 cd pyadi-iio
-git checkout master
+git checkout main
 sudo pip install .
 
 cd ~
@@ -60,7 +60,7 @@ sudo ldconfig
 sudo apt-get install sshpass
 
 # Grab Pluto firmware while we're here:
-wget https://github.com/analogdevicesinc/plutosdr-fw/releases/download/v0.35/plutosdr-fw-v0.35.zip
+wget https://github.com/analogdevicesinc/plutosdr-fw/releases/download/v0.38/plutosdr-fw-v0.38.zip
 
 echo "Done setting up SD card! A reboot is probably in order, sor run 'sudo reboot'"
 echo "IF you are very sure you're only going to be operating headless or by command line and want to speed the boot / shutdown process, run:"
