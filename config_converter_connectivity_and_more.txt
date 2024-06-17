@@ -1,0 +1,17 @@
+# Heartbeat blinky:
+dtparam=act_led_trigger=heartbeat
+
+# Short GPIO21 (pin 40) to ground for shutdown:
+dtoverlay=gpio-shutdown,gpio_pin=21,active_low=1,gpiopull=up
+
+# ADXL345 overlay hard-coded to CS0, irq_gpio=19 corresponding to adapter P1
+dtoverlay=rpi-adxl345
+
+# Set ADXL355 CS, irq overrides to adapter P2
+dtoverlay=rpi-adxl355,cs_pin=1,irq_gpio=25
+
+dtoverlay=rpi-lm75,addr=0x48
+
+# Explicitly set adapter reset# GPIOs to input, pull-up
+dtoverlay=rpi-ad5593r
+gpio=13,17=pu,ip
